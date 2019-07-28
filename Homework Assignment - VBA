@@ -1,0 +1,55 @@
+Sub EasyHomework()
+
+    'Set variable for Ticker Name
+    Dim Ticker_Name As String
+    
+    'Set a variable for Ticker Volume
+    Dim Ticker_Vol As LongLong
+    Ticker_Vol = 0
+    
+    'Create titles for Summary Table
+    Range("I1").Value = "Ticker"
+    Range("J1").Value = "Total Stock Volume"
+    
+    'Keep track of the location for ticker in the summary table
+    Dim Summary_Table_Row As Long
+    Summary_Table_Row = 2
+    
+    'Determine last row of data to set end of for loop
+    Last_Row = Cells(Rows.Count, 1).End(xlUp).Row
+    
+    'Loop through all Tickers
+    For i = 2 To Last_Row
+    
+    'Check if the next Ticker is the same, if it is not...
+        If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+        
+            'Set the Ticker Name
+            Ticker_Name = Cells(i, 1).Value
+            
+            'Add to the Ticker Volume
+            Ticker_Vol = Ticker_Vol + Cells(i, 7).Value
+            
+            'Print the Ticker Name in the Summary Table
+            Range("I" & Summary_Table_Row).Value = Ticker_Name
+            
+            'Print the Total Volume to the Summary Table
+            Range("J" & Summary_Table_Row).Value = Ticker_Vol
+            
+            'Add one to the summary table row
+            Summary_Table_Row = Summary_Table_Row + 1
+            
+            'Reset the Ticker Volume
+            Ticker_Vol = 0
+            
+        'If the cell immediately following a row is the same brand...
+        Else
+        
+            'Add to the Ticker Volume number
+            Ticker_Vol = Ticker_Vol + Cells(i, 7).Value
+    
+        End If
+    
+      Next i
+
+End Sub
