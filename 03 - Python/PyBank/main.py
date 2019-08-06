@@ -1,4 +1,4 @@
-# First we'll import the os module to create file paths across operating systems
+# Import the os module to create file paths across operating systems
 import os
 
 # Module for reading CSV files
@@ -44,8 +44,8 @@ with open(csvpath, newline='') as csvfile:
 
 
 
-    # 4)Calculate the largest increase from one month to the next (include the month)
-    # 5)Calculate the largest decrease from one month to the next (include the month)
+    # 4)In progress - Calculate the largest increase from one month to the next (include the month)
+    # 5)In progress - Calculate the largest decrease from one month to the next (include the month)
 
     # 6)Print results to terminal and to a text file
     print("Financial Analysis")
@@ -65,6 +65,7 @@ with open(output_file, "w", newline="") as txt:
     txt.write("----------------------------------------\n")
     txt.write(f"Total Months: {len(mo_count)}\n")
     txt.write(f"Total: ${tot_prof_loss}\n")
+    # txt.write(f"Average Change: ${avg_mo_change}")
     # txt.write(f"Greatest Increase in Profits: {month value} {Profit/Loss value}\n")
     # txt.write(f"Greatest Decrease in Profits: {month value} {Profit/Loss value}\n")
     print("----------------------------------------\n")
