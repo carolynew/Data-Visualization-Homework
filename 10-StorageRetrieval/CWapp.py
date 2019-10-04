@@ -75,7 +75,27 @@ def stations():
 #Temperature route
 @app.route("/api/v1.0/tobs")
 def temperature():
-    return jsonify(TBD-temp)
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of temperatures over the last year"""
+    session = Session(engine)
+    temps = session.query(Measurement.date, Measurement.tobs).\
+        filter(Measurement.date >= '2016-08-23').\
+        group_by(Measurement.date).all()
+
+    session.close()
+
+    #Create a dictionary of the query results
+    dailytobs = []
+    for date, tobs in temps:
+        tobs_dict = {}
+        tobs_dict["date"] = date
+        tobs_dict["tobs"] = tobs
+        dailytobs.append(tobs_dict)
+
+    return jsonify(dailytobs)
 
 #Start Date route
 @app.route("/api/v1.0/<start>")
@@ -85,7 +105,18 @@ def startdate():
 #Start & End Date route
 @app.route("/api/v1.0/<start>/end")
 def startenddate():
-    return jsonify(TBD-startenddate)
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of temperatures over the period 2/28/2011 to 3/5/2011"""
+    session = Session(engine)
+    def calc_temps(start_date, end_date):
+    
+    return session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start_date).filter(Measurement.date <= end_date).all()
+
+    return jsonify(calc_temps('2011-02-28', '2011-03-05'))
 
 if __name__ == "__main__":
     app.run(debug=True)
